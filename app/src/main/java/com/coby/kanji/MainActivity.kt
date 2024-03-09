@@ -12,6 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.coby.kanji.screen.DetailScreen
+import com.coby.kanji.screen.MainScreen
 import com.coby.kanji.ui.theme.KanjiTheme
 import com.coby.kanji.viewmodel.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(viewModel.characters.toString())
+                    TopLevel()
                 }
             }
         }
@@ -41,17 +47,37 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
+fun TopLevel(
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        "Main",
         modifier = modifier
-    )
-}
+    ) {
+        composable("Main") {
+            MainScreen(
+                onDetailButtonClick = {
+                    val state = it
+                    navController.navigate("Detail/${state}")
+                }
+            )
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KanjiTheme {
-        Greeting("Android")
+        composable(
+            "Detail/{state}",
+        ) {
+            DetailScreen(
+                state = "kanji",
+                onBackButtonClick = {
+                    navController.navigate("Main") {
+                        popUpTo("Main") {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
     }
 }
