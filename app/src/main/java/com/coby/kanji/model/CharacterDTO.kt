@@ -1,7 +1,5 @@
 package com.coby.kanji.model
 
-import com.coby.kanji.entity.GradeType
-
 data class CharacterDTO(
     val grade: String,
     val kanji: String,

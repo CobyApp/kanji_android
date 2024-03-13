@@ -2,9 +2,19 @@ package com.coby.kanji.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.coby.kanji.R
+
+val JKMaru = FontFamily(
+    Font(R.font.jkmaru)
+)
+
+val Ownglyph = FontFamily(
+    Font(R.font.ownglyph)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
