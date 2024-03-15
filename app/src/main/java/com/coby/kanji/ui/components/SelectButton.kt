@@ -1,7 +1,10 @@
 package com.coby.kanji.ui.components
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,7 +20,9 @@ import com.coby.kanji.ui.theme.Ownglyph
 @Composable
 fun SelectButton(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String,
+    index: Int,
+    total: Int,
     onClick: () -> Unit
 ) {
     Button(
@@ -31,12 +36,26 @@ fun SelectButton(
         shape = RoundedCornerShape(20.dp),
         onClick = onClick
     ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontFamily = Ownglyph,
-                fontSize = 20.sp
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = title,
+                style = TextStyle(
+                    fontFamily = Ownglyph,
+                    fontSize = 20.sp
+                )
             )
-        )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "${index + 1}/$total",
+                style = TextStyle(
+                    fontFamily = Ownglyph,
+                    fontSize = 20.sp
+                )
+            )
+        }
     }
 }

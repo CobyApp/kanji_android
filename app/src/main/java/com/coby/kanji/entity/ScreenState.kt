@@ -1,5 +1,5 @@
 package com.coby.kanji.entity
 
 enum class ScreenState {
-    start, kanji, korean, word;
+    kanji, korean, word;
 }
