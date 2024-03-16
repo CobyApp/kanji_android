@@ -32,12 +32,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: CharacterViewModel by viewModels()
-
-        viewModel.characters.forEach { character ->
-            Log.d("캐릭터", character.toString())
-        }
-
         setContent {
             KanjiTheme {
                 Surface(

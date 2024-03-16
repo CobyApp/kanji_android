@@ -1,7 +1,9 @@
 package com.coby.kanji.di
 
 import android.content.Context
+import com.coby.kanji.mapper.toCharacter
 import com.coby.kanji.model.CharacterDTO
+import com.coby.kanji.entity.Character
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.Module
@@ -20,8 +22,10 @@ class AppModules {
 
     @Singleton
     @Provides
-    fun provideMyJsonData(@ApplicationContext context: Context, gson: Gson): List<CharacterDTO> {
+    fun provideMyJsonData(@ApplicationContext context: Context, gson: Gson): List<Character> {
         val jsonString = context.assets.open("characters.json").bufferedReader().use { it.readText() }
-        return gson.fromJson(jsonString, object : TypeToken<List<CharacterDTO>>() {}.type)
+        val characterDTOs: List<CharacterDTO> = gson.fromJson(jsonString, object : TypeToken<List<CharacterDTO>>() {}.type)
+        val characters: List<Character> = characterDTOs.map { it.toCharacter() }
+        return characters
     }
 }

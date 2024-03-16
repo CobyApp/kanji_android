@@ -67,6 +67,7 @@ dependencies {
     // Hilt 의존성
     implementation("com.google.dagger:hilt-android:2.51")
     kapt("com.google.dagger:hilt-android-compiler:2.51")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 
     // GSON
     implementation("com.google.code.gson:gson:2.10.1")

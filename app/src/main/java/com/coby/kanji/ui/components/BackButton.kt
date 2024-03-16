@@ -23,15 +23,15 @@ fun BackButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Button(
-        onClick = { onClick() },
-        modifier = Modifier
-            .size(50.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Black.copy(alpha = 0.8F),
-            contentColor = Color.White
-        ),
-        shape = CircleShape
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(50.dp)
+            .background(
+                color = Color.Black.copy(alpha = 0.8F),
+                shape = CircleShape
+            )
+            .clickable(onClick = onClick)
     ) {
         Icon(
             imageVector = Icons.Filled.KeyboardArrowLeft,

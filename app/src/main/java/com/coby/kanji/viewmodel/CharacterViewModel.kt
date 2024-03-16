@@ -5,24 +5,37 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coby.kanji.entity.Character
 import com.coby.kanji.entity.GradeType
+import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.entity.WordItem
 import com.coby.kanji.mapper.toCharacter
 import com.coby.kanji.model.CharacterDTO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    private val characterList: List<CharacterDTO>
+    private val characters: List<Character>
 ) : ViewModel() {
-    val characters = mutableStateListOf<Character>()
+    private val _characterState = MutableStateFlow<List<Character>>(emptyList())
+    val characterState: StateFlow<List<Character>> = _characterState
 
-    fun getCharacters() {
-        characters.clear()
+    init {
+        loadCharacters()
+    }
+
+    private fun loadCharacters() {
         viewModelScope.launch {
-            val result = characterList.map { it.toCharacter() }
-            characters.addAll(result)
+            _characterState.value = characters
+        }
+    }
+
+    fun getTotal(screenState: ScreenState, grade: GradeType): Int {
+        return when (screenState) {
+            ScreenState.kanji, ScreenState.korean -> getCharactersByGrade(grade = grade).count()
+            ScreenState.word -> getWordsByGrade(grade = grade).count()
         }
     }
 
