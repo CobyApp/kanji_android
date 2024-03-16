@@ -93,6 +93,13 @@ fun TopLevel(
                             inclusive = true
                         }
                     }
+                },
+                onGalleryButtonClick = {
+                    navController.navigate("Gallery") {
+                        popUpTo("Gallery") {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }

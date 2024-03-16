@@ -24,37 +24,37 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.mainbg), // 배경 이미지 리소스
-            contentDescription = null, // 접근성을 위한 설명 (배경 이미지이므로 null로 설정)
-            modifier = Modifier.fillMaxSize(), // Box 컨테이너 전체 크기로 이미지를 설정
-            contentScale = ContentScale.Crop // 이미지가 Box의 크기에 맞춰 잘리거나 늘어나도록 설정
+            painter = painterResource(id = R.drawable.mainbg),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
 
         Column(
             modifier = Modifier
-                .padding(24.dp)
+                .padding(16.dp)
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             CommonButton(
+                text = "한자 공부하기",
                 onClick = {
                     onStartButtonClick(ScreenState.kanji)
-                },
-                text = "한자 공부하기"
+                }
             )
 
             CommonButton(
+                text = "뜻음 퀴즈",
                 onClick = {
                     onStartButtonClick(ScreenState.korean)
-                },
-                text = "뜻음 퀴즈"
+                }
             )
 
             CommonButton(
+                text = "단어 퀴즈",
                 onClick = {
                     onStartButtonClick(ScreenState.word)
-                },
-                text = "단어 퀴즈"
+                }
             )
         }
     }
