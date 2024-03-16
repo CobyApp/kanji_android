@@ -57,7 +57,7 @@ fun DetailScreen(
                 .height(50.dp),
             text = "목록",
             onClick = {
-                onBackButtonClick()
+                onGalleryButtonClick()
             }
         )
 
