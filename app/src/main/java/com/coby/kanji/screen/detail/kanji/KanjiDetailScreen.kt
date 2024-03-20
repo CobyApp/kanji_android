@@ -24,6 +24,8 @@ import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.ui.components.board.KanjiBoardView
 import com.coby.kanji.ui.components.button.CloseButton
 import com.coby.kanji.ui.components.button.CommonButton
+import com.coby.kanji.ui.components.button.LeftButton
+import com.coby.kanji.ui.components.button.RightButton
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -38,12 +40,6 @@ fun KanjiDetailScreen(
 
     LaunchedEffect(key1 = Unit) {
         index = viewModel.getIndex(screenState = ScreenState.kanji, gradeType = gradeType)
-    }
-
-    DisposableEffect(key1 = Unit) {
-        onDispose {
-            viewModel.saveIndex(screenState = ScreenState.kanji, gradeType = gradeType, index = index)
-        }
     }
 
     Box(
@@ -73,7 +69,24 @@ fun KanjiDetailScreen(
 
             KanjiBoardView(kanji = kanjis[index].kanji)
 
-            KanjiInfoView(character = kanjis[index], total = kanjis.size, count = index + 1)
+            KanjiInfoView(
+                modifier = Modifier
+                    .fillMaxSize(),
+                character = kanjis[index],
+                total = kanjis.size,
+                count = index + 1
+            )
+
+            ArrowButtons(
+                beforeIndex = {
+                    index = if (index == 0) kanjis.size - 1 else index - 1
+                    viewModel.saveIndex(screenState = ScreenState.kanji, gradeType = gradeType, index = index)
+                },
+                nextIndex = {
+                    index = if (index == kanjis.size - 1) 0 else index + 1
+                    viewModel.saveIndex(screenState = ScreenState.kanji, gradeType = gradeType, index = index)
+                }
+            )
         }
     }
 }
@@ -99,5 +112,23 @@ fun TopAppBarView(onDismiss: () -> Unit, onShowGallery: () -> Unit) {
             text = "목록",
             onClick = onShowGallery
         )
+    }
+}
+
+@Composable
+fun ArrowButtons(beforeIndex: () -> Unit, nextIndex: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        LeftButton {
+            beforeIndex()
+        }
+
+        Spacer(Modifier.weight(1f))
+
+        RightButton {
+            nextIndex()
+        }
     }
 }

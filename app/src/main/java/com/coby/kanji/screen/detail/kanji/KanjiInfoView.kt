@@ -1,6 +1,5 @@
 package com.coby.kanji.screen.detail.kanji
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,9 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.entity.Character
@@ -24,7 +20,12 @@ import com.coby.kanji.ui.theme.JKMaru
 import com.coby.kanji.ui.theme.Ownglyph
 
 @Composable
-fun KanjiInfoView(character: Character, total: Int, count: Int) {
+fun KanjiInfoView(
+    modifier: Modifier,
+    character: Character,
+    total: Int,
+    count: Int
+) {
     Box(
         modifier = Modifier
             .background(Color.Black.copy(alpha = 0.8f), RoundedCornerShape(20.dp))
