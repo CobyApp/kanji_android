@@ -21,7 +21,7 @@ import com.coby.kanji.R
 import com.coby.kanji.entity.Character
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.ui.components.BoardView
+import com.coby.kanji.ui.components.board.KanjiBoardView
 import com.coby.kanji.ui.components.button.CloseButton
 import com.coby.kanji.ui.components.button.CommonButton
 import com.coby.kanji.viewmodel.CharacterViewModel
@@ -71,7 +71,9 @@ fun KanjiDetailScreen(
         ) {
             TopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            BoardView(kanji = kanjis[index].kanji)
+            KanjiBoardView(kanji = kanjis[index].kanji)
+
+            KanjiInfoView(character = kanjis[index], total = kanjis.size, count = index + 1)
         }
     }
 }

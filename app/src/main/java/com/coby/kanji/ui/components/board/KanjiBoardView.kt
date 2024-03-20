@@ -1,4 +1,4 @@
-package com.coby.kanji.ui.components
+package com.coby.kanji.ui.components.board
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
 
 @Composable
-fun BoardView(
+fun KanjiBoardView(
     modifier: Modifier = Modifier,
     kanji: String
 ) {
@@ -45,5 +45,5 @@ fun BoardView(
 @Preview
 @Composable
 fun PreviewKanjiBoardView() {
-    BoardView(modifier = Modifier, kanji = "家")
+    KanjiBoardView(modifier = Modifier, kanji = "家")
 }
