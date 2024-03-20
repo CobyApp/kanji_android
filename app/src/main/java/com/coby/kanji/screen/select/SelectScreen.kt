@@ -1,5 +1,6 @@
 package com.coby.kanji.screen.select
 
+import android.content.Context.MODE_PRIVATE
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -84,10 +85,13 @@ fun SelectView(
     ) {
         items(GradeType.values().size) { index ->
             val grade = GradeType.values()[index]
+            val total = viewModel.getTotal(screenState = screenState, grade = grade)
+            val index = viewModel.getIndex(screenState = screenState, grade = grade)
+
             SelectButton(
                 title = grade.title,
-                index = 0,
-                total = viewModel.getTotal(screenState = screenState, grade = grade),
+                index = index,
+                total = total,
                 onClick = {
                     onSelectButtonClick()
                 }
