@@ -1,10 +1,8 @@
 package com.coby.kanji
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,13 +16,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.screen.detail.DetailScreen
+import com.coby.kanji.screen.detail.kanji.KanjiDetailScreen
 import com.coby.kanji.screen.gallery.GalleryScreen
 import com.coby.kanji.screen.main.MainScreen
 import com.coby.kanji.screen.select.SelectScreen
 import com.coby.kanji.ui.theme.KanjiTheme
-import com.coby.kanji.viewmodel.CharacterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +49,7 @@ fun TopLevel(
     modifier: Modifier = Modifier
 ) {
     var screenState by remember { mutableStateOf(ScreenState.kanji) }
+    var gradeType by remember { mutableStateOf(GradeType.one) }
 
     NavHost(
         navController = navController,
@@ -69,34 +68,35 @@ fun TopLevel(
         composable("Select") {
             SelectScreen(
                 screenState = screenState,
-                onBackButtonClick = {
+                onDismiss = {
                     navController.navigate("Main") {
                         popUpTo("Main") {
                             inclusive = true
                         }
                     }
                 },
-                onSelectButtonClick = {
-                    navController.navigate("Detail")
+                onShowDetail = {
+                    gradeType = it
+                    navController.navigate(screenState.name + "Detail")
                 }
             )
         }
 
         composable(
-            "Detail",
+            screenState.name + "Detail",
         ) {
-            DetailScreen(
-                screenState = screenState,
-                onBackButtonClick = {
+            KanjiDetailScreen(
+                gradeType = gradeType,
+                onDismiss = {
                     navController.navigate("Select") {
                         popUpTo("Select") {
                             inclusive = true
                         }
                     }
                 },
-                onGalleryButtonClick = {
-                    navController.navigate("Gallery") {
-                        popUpTo("Gallery") {
+                onShowGallery = {
+                    navController.navigate(screenState.name + "Gallery") {
+                        popUpTo(screenState.name + "Gallery") {
                             inclusive = true
                         }
                     }
@@ -105,13 +105,13 @@ fun TopLevel(
         }
 
         composable(
-            "Gallery",
+            screenState.name + "Gallery",
         ) {
             GalleryScreen(
-                screenState = screenState,
+                gradeType = gradeType,
                 onBackButtonClick = {
-                    navController.navigate("Detail") {
-                        popUpTo("Detail") {
+                    navController.navigate(screenState.name + "Detail") {
+                        popUpTo(screenState.name + "Detail") {
                             inclusive = true
                         }
                     }

@@ -17,11 +17,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.coby.kanji.R
+import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 
 @Composable
 fun GalleryScreen(
-    screenState: ScreenState,
+    gradeType: GradeType,
     onBackButtonClick: () -> Unit,
 ) {
     Box(

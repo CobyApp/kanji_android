@@ -1,6 +1,5 @@
 package com.coby.kanji.screen.select
 
-import android.content.Context.MODE_PRIVATE
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,10 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,16 +18,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.coby.kanji.R
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.mapper.getGradeType
-import com.coby.kanji.ui.components.BackButton
-import com.coby.kanji.ui.components.SelectButton
+import com.coby.kanji.ui.components.button.BackButton
+import com.coby.kanji.ui.components.button.SelectButton
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
 fun SelectScreen(
     screenState: ScreenState,
-    onBackButtonClick: () -> Unit,
-    onSelectButtonClick: () -> Unit
+    onDismiss: () -> Unit,
+    onShowDetail: (GradeType) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -55,7 +49,7 @@ fun SelectScreen(
                 .padding(16.dp)
                 .align(Alignment.TopStart),
             onClick = {
-                onBackButtonClick()
+                onDismiss()
             }
         )
 
@@ -66,7 +60,7 @@ fun SelectScreen(
                 .align(Alignment.TopCenter),
             screenState = screenState,
             onSelectButtonClick = {
-                onSelectButtonClick()
+                onShowDetail(it)
             }
         )
     }
@@ -76,7 +70,7 @@ fun SelectScreen(
 fun SelectView(
     modifier: Modifier = Modifier,
     screenState: ScreenState,
-    onSelectButtonClick: () -> Unit,
+    onSelectButtonClick: (GradeType) -> Unit,
     viewModel: CharacterViewModel = hiltViewModel()
 ) {
     LazyColumn(
@@ -85,15 +79,15 @@ fun SelectView(
     ) {
         items(GradeType.values().size) { index ->
             val grade = GradeType.values()[index]
-            val total = viewModel.getTotal(screenState = screenState, grade = grade)
-            val index = viewModel.getIndex(screenState = screenState, grade = grade)
+            val total = viewModel.getTotal(screenState = screenState, gradeType = grade)
+            val index = viewModel.getIndex(screenState = screenState, gradeType = grade)
 
             SelectButton(
                 title = grade.title,
                 index = index,
                 total = total,
                 onClick = {
-                    onSelectButtonClick()
+                    onSelectButtonClick(grade)
                 }
             )
         }

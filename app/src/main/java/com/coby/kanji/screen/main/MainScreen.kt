@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.coby.kanji.R
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.ui.components.CommonButton
+import com.coby.kanji.ui.components.button.CommonButton
 
 @Composable
 fun MainScreen(

@@ -35,26 +35,26 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
-    fun getTotal(screenState: ScreenState, grade: GradeType): Int {
+    fun getTotal(screenState: ScreenState, gradeType: GradeType): Int {
         return when (screenState) {
-            ScreenState.kanji, ScreenState.korean -> getCharactersByGrade(grade = grade).count()
-            ScreenState.word -> getWordsByGrade(grade = grade).count()
+            ScreenState.kanji, ScreenState.korean -> getCharactersByGrade(gradeType = gradeType).count()
+            ScreenState.word -> getWordsByGrade(gradeType = gradeType).count()
         }
     }
 
-    fun getIndex(screenState: ScreenState, grade: GradeType): Int {
-        return sharedPreferences.getInt(screenState.name + grade.name, 0)
+    fun getIndex(screenState: ScreenState, gradeType: GradeType): Int {
+        return sharedPreferences.getInt(screenState.name + gradeType.name, 0)
     }
 
-    fun saveIndex(screenState: ScreenState, grade: GradeType, index: Int) {
+    fun saveIndex(screenState: ScreenState, gradeType: GradeType, index: Int) {
         sharedPreferences.edit().apply {
-            putInt(screenState.name + grade.name, index)
+            putInt(screenState.name + gradeType.name, index)
             apply()
         }
     }
 
-    fun getCharactersByGrade(grade: GradeType): List<Character> {
-        return characters.filter { it.grade == grade }
+    fun getCharactersByGrade(gradeType: GradeType): List<Character> {
+        return characters.filter { it.grade == gradeType }
     }
 
     fun getRandomCharacters(): List<Character> {
@@ -72,8 +72,8 @@ class CharacterViewModel @Inject constructor(
         return characters.flatMap { it.words1 + it.words2 }
     }
 
-    fun getWordsByGrade(grade: GradeType): List<WordItem> {
-        return getCharactersByGrade(grade).flatMap { it.words1 + it.words2 }
+    fun getWordsByGrade(gradeType: GradeType): List<WordItem> {
+        return getCharactersByGrade(gradeType).flatMap { it.words1 + it.words2 }
     }
 
     fun getRandomWordItems(): List<WordItem> {

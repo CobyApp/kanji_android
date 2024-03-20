@@ -1,4 +1,4 @@
-package com.coby.kanji.ui.components
+package com.coby.kanji.ui.components.button
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
