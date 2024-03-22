@@ -27,9 +27,8 @@ fun KanjiInfoView(
     count: Int
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(Color.Black.copy(alpha = 0.8f), RoundedCornerShape(20.dp))
-            .fillMaxWidth()
     ) {
         Column(
             modifier = Modifier

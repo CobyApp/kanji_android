@@ -70,8 +70,7 @@ fun KanjiDetailScreen(
             KanjiBoardView(kanji = kanjis[index].kanji)
 
             KanjiInfoView(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.weight(1f),
                 character = kanjis[index],
                 total = kanjis.size,
                 count = index + 1
