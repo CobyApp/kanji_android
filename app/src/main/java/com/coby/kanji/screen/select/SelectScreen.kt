@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,6 +47,7 @@ fun SelectScreen(
 
         BackButton(
             modifier = Modifier
+                .systemBarsPadding()
                 .padding(16.dp)
                 .align(Alignment.TopStart),
             onClick = {
@@ -55,6 +57,7 @@ fun SelectScreen(
 
         SelectView(
             modifier = Modifier
+                .systemBarsPadding()
                 .padding(horizontal = 16.dp)
                 .padding(top = 82.dp)
                 .align(Alignment.TopCenter),
