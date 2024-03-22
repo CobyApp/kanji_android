@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,9 +43,11 @@ fun KanjiGalleryScreen(
 ) {
     val kanjis: List<Character> = viewModel.getCharactersByGrade(gradeType = gradeType)
     var currentIndex by remember { mutableStateOf(0) }
+    val gridState = rememberLazyGridState()
 
     LaunchedEffect(key1 = Unit) {
         currentIndex = viewModel.getIndex(screenState = ScreenState.kanji, gradeType = gradeType)
+        gridState.scrollToItem(index = currentIndex)
     }
 
     Box(
@@ -73,7 +76,8 @@ fun KanjiGalleryScreen(
                 end = 16.dp
             ),
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            state = gridState
         ) {
             itemsIndexed(kanjis) { index, character ->
                 GalleryKanjiView(

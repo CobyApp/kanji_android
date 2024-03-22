@@ -68,6 +68,8 @@ fun KanjiDetailScreen(
 
             KanjiBoardView(kanji = kanjis[index].kanji)
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             KanjiInfoView(
                 modifier = Modifier.weight(1f),
                 character = kanjis[index],
