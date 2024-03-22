@@ -1,4 +1,4 @@
-package com.coby.kanji.screen.detail.kanji
+package com.coby.kanji.screen.detail.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -35,7 +35,6 @@ fun KanjiInfoView(
                 .verticalScroll(state = rememberScrollState())
                 .padding(20.dp)
         ) {
-            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

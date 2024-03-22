@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,11 +20,10 @@ import com.coby.kanji.R
 import com.coby.kanji.entity.Character
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.ui.components.board.KanjiBoardView
-import com.coby.kanji.ui.components.button.CloseButton
-import com.coby.kanji.ui.components.button.CommonButton
-import com.coby.kanji.ui.components.button.LeftButton
-import com.coby.kanji.ui.components.button.RightButton
+import com.coby.kanji.screen.detail.common.ArrowButtons
+import com.coby.kanji.screen.detail.common.KanjiInfoView
+import com.coby.kanji.screen.detail.common.DetailTopAppBarView
+import com.coby.kanji.screen.detail.common.KanjiBoardView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -60,13 +58,13 @@ fun KanjiDetailScreen(
 
         Column(
             modifier = Modifier
-                .systemBarsPadding()
                 .fillMaxSize()
+                .systemBarsPadding()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            TopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
+            DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
             KanjiBoardView(kanji = kanjis[index].kanji)
 
@@ -80,55 +78,21 @@ fun KanjiDetailScreen(
             ArrowButtons(
                 beforeIndex = {
                     index = if (index == 0) kanjis.size - 1 else index - 1
-                    viewModel.saveIndex(screenState = ScreenState.kanji, gradeType = gradeType, index = index)
+                    viewModel.saveIndex(
+                        screenState = ScreenState.kanji,
+                        gradeType = gradeType,
+                        index = index
+                    )
                 },
                 nextIndex = {
                     index = if (index == kanjis.size - 1) 0 else index + 1
-                    viewModel.saveIndex(screenState = ScreenState.kanji, gradeType = gradeType, index = index)
+                    viewModel.saveIndex(
+                        screenState = ScreenState.kanji,
+                        gradeType = gradeType,
+                        index = index
+                    )
                 }
             )
-        }
-    }
-}
-
-@Composable
-fun TopAppBarView(onDismiss: () -> Unit, onShowGallery: () -> Unit) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        CloseButton(
-            modifier = Modifier,
-            onClick = onDismiss
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        CommonButton(
-            modifier = Modifier
-                .width(80.dp)
-                .height(50.dp),
-            text = "목록",
-            onClick = onShowGallery
-        )
-    }
-}
-
-@Composable
-fun ArrowButtons(beforeIndex: () -> Unit, nextIndex: () -> Unit) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        LeftButton {
-            beforeIndex()
-        }
-
-        Spacer(Modifier.weight(1f))
-
-        RightButton {
-            nextIndex()
         }
     }
 }

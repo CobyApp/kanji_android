@@ -14,7 +14,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,7 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.kanji.KanjiDetailScreen
-import com.coby.kanji.screen.gallery.GalleryScreen
+import com.coby.kanji.screen.gallery.kanji.KanjiGalleryScreen
 import com.coby.kanji.screen.main.MainScreen
 import com.coby.kanji.screen.select.SelectScreen
 import com.coby.kanji.ui.theme.KanjiTheme
@@ -114,9 +113,9 @@ fun TopLevel(
         composable(
             screenState.name + "Gallery",
         ) {
-            GalleryScreen(
+            KanjiGalleryScreen(
                 gradeType = gradeType,
-                onBackButtonClick = {
+                onDismiss = {
                     navController.navigate(screenState.name + "Detail") {
                         popUpTo(screenState.name + "Detail") {
                             inclusive = true
