@@ -53,6 +53,17 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
+    fun getCount(screenState: ScreenState, word: String): Int {
+        return sharedPreferences.getInt(screenState.name + word, 0)
+    }
+
+    fun saveCount(screenState: ScreenState, word: String, count: Int) {
+        sharedPreferences.edit().apply {
+            putInt(screenState.name + word, count)
+            apply()
+        }
+    }
+
     fun getCharactersByGrade(gradeType: GradeType): List<Character> {
         return characters.filter { it.grade == gradeType }
     }
