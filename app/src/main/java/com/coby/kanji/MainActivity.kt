@@ -29,6 +29,7 @@ import com.coby.kanji.screen.gallery.word.WordGalleryScreen
 import com.coby.kanji.screen.main.MainScreen
 import com.coby.kanji.screen.select.SelectScreen
 import com.coby.kanji.ui.theme.KanjiTheme
+import com.coby.kanji.util.TTSManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +41,7 @@ class MainActivity : ComponentActivity() {
             )
         )
         super.onCreate(savedInstanceState)
+        TTSManager.init(this)
         setContent {
             KanjiTheme {
                 Surface(
