@@ -86,7 +86,7 @@ fun WordDetailScreen(
                 total = words.size,
                 items = items,
                 onSelect = {
-                    if (words[index].word == it) {
+                    if (words[index].wordSound == it) {
                         index = if (index == words.size - 1) 0 else index + 1
                         viewModel.saveIndex(
                             screenState = ScreenState.word,

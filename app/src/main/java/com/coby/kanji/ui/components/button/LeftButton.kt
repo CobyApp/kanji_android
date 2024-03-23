@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,17 +21,14 @@ fun LeftButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
+    IconButton(
         modifier = modifier
             .size(50.dp)
-            .background(
-                color = Color.Black.copy(alpha = 0.8F),
-                shape = CircleShape
-            )
-            .clickable(onClick = onClick)
+            .background(Color.Black.copy(alpha = 0.8f), shape = CircleShape),
+        onClick = onClick
     ) {
         Icon(
+            modifier = Modifier.size(24.dp),
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = "Left",
             tint = Color.White
