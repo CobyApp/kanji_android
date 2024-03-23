@@ -92,7 +92,8 @@ fun KanjiSound(type: String, sound: String) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(24.dp)
+                .width(IntrinsicSize.Max)
+                .aspectRatio(1.0f)
                 .background(
                     color = Color.White.copy(alpha = 0.9F),
                     shape = CircleShape
@@ -103,7 +104,7 @@ fun KanjiSound(type: String, sound: String) {
                 fontFamily = Ownglyph,
                 fontSize = 17.sp,
                 color = Color.Black,
-                modifier = Modifier.padding(2.dp)
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
 
@@ -121,13 +122,13 @@ fun KanjiSound(type: String, sound: String) {
 fun WordItem(wordItem: WordItem) {
     Row(
         modifier = Modifier.padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.Bottom
     ) {
         Text(
             text = wordItem.word,
             fontFamily = Ownglyph,
             fontSize = 17.sp,
-            lineHeight = 22.sp,
             color = Color.White,
             modifier = Modifier.padding(end = 8.dp)
         )
@@ -136,9 +137,7 @@ fun WordItem(wordItem: WordItem) {
             text = wordItem.mean,
             fontFamily = Ownglyph,
             fontSize = 17.sp,
-            lineHeight = 22.sp,
-            color = Color.White,
-            modifier = Modifier.padding(top = 6.dp)
+            color = Color.White
         )
     }
 }
