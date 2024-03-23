@@ -1,8 +1,11 @@
-package com.coby.kanji.screen.gallery.common
+package com.coby.kanji.screen.detail.korean
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,37 +18,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
+import com.coby.kanji.screen.detail.kanji.KanjiBoardView
 
 @Composable
-fun GalleryKanjiView(
+fun KanjiBigBoardView(
     modifier: Modifier = Modifier,
-    kanji: String,
-    isChecked: Boolean
+    kanji: String
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .background(color = Color.White.copy(alpha = 0.8f), shape = RoundedCornerShape(20.dp))
+            .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(20.dp))
+            .width(250.dp)
+            .height(250.dp)
     ) {
         Text(
             text = kanji,
             color = Color.Black,
-            fontSize = 50.sp,
+            fontSize = 200.sp,
             fontFamily = FontFamily(Font(R.font.jkmaru))
         )
-
-        if (isChecked) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.3f))
-            )
-        }
     }
 }
 
 @Preview
 @Composable
-fun PreviewGalleryKanjiView() {
-    GalleryKanjiView(modifier = Modifier, kanji = "家", isChecked = true)
+fun PreviewKanjiBigBoardView() {
+    KanjiBigBoardView(modifier = Modifier, kanji = "家")
 }

@@ -21,7 +21,9 @@ import androidx.navigation.compose.rememberNavController
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.kanji.KanjiDetailScreen
+import com.coby.kanji.screen.detail.korean.KoreanDetailScreen
 import com.coby.kanji.screen.gallery.kanji.KanjiGalleryScreen
+import com.coby.kanji.screen.gallery.korean.KoreanGalleryScreen
 import com.coby.kanji.screen.main.MainScreen
 import com.coby.kanji.screen.select.SelectScreen
 import com.coby.kanji.ui.theme.KanjiTheme
@@ -83,13 +85,13 @@ fun TopLevel(
                 },
                 onShowDetail = {
                     gradeType = it
-                    navController.navigate(screenState.name + "Detail")
+                    navController.navigate("Detail/${screenState.name}")
                 }
             )
         }
 
         composable(
-            screenState.name + "Detail",
+            "Detail/kanji",
         ) {
             KanjiDetailScreen(
                 gradeType = gradeType,
@@ -101,8 +103,37 @@ fun TopLevel(
                     }
                 },
                 onShowGallery = {
-                    navController.navigate(screenState.name + "Gallery") {
-                        popUpTo(screenState.name + "Gallery") {
+                    navController.navigate( "Gallery/kanji")
+                }
+            )
+        }
+
+        composable(
+            "Detail/korean",
+        ) {
+            KoreanDetailScreen(
+                gradeType = gradeType,
+                onDismiss = {
+                    navController.navigate("Select") {
+                        popUpTo("Select") {
+                            inclusive = true
+                        }
+                    }
+                },
+                onShowGallery = {
+                    navController.navigate( "Gallery/korean")
+                }
+            )
+        }
+
+        composable(
+            "Gallery/kanji",
+        ) {
+            KanjiGalleryScreen(
+                gradeType = gradeType,
+                onDismiss = {
+                    navController.navigate("Detail/kanji") {
+                        popUpTo("Detail/kanji") {
                             inclusive = true
                         }
                     }
@@ -111,13 +142,13 @@ fun TopLevel(
         }
 
         composable(
-            screenState.name + "Gallery",
+            "Gallery/korean",
         ) {
-            KanjiGalleryScreen(
+            KoreanGalleryScreen(
                 gradeType = gradeType,
                 onDismiss = {
-                    navController.navigate(screenState.name + "Detail") {
-                        popUpTo(screenState.name + "Detail") {
+                    navController.navigate("Detail/korean") {
+                        popUpTo("Detail/korean") {
                             inclusive = true
                         }
                     }

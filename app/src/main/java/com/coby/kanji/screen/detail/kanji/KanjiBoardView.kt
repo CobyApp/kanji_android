@@ -1,4 +1,4 @@
-package com.coby.kanji.screen.detail.common
+package com.coby.kanji.screen.detail.kanji
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,14 +29,13 @@ fun KanjiBoardView(
         modifier = modifier
             .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
-            .padding(20.dp)
-            .width(150.dp)
-            .height(150.dp)
+            .width(200.dp)
+            .height(200.dp)
     ) {
         Text(
             text = kanji,
             color = Color.Black,
-            fontSize = 120.sp,
+            fontSize = 150.sp,
             fontFamily = FontFamily(Font(R.font.jkmaru))
         )
     }

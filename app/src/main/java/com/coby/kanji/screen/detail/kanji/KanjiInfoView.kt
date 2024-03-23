@@ -1,4 +1,4 @@
-package com.coby.kanji.screen.detail.common
+package com.coby.kanji.screen.detail.kanji
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

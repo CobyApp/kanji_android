@@ -1,11 +1,19 @@
-package com.coby.kanji.screen.detail.kanji
+package com.coby.kanji.screen.detail.korean
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,10 +30,12 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
+import com.coby.kanji.screen.detail.kanji.KanjiBoardView
+import com.coby.kanji.screen.detail.kanji.KanjiInfoView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
-fun KanjiDetailScreen(
+fun KoreanDetailScreen(
     gradeType: GradeType,
     onDismiss: () -> Unit,
     onShowGallery: () -> Unit,
@@ -35,7 +45,7 @@ fun KanjiDetailScreen(
     var index by remember { mutableStateOf(0) }
 
     LaunchedEffect(key1 = Unit) {
-        index = viewModel.getIndex(screenState = ScreenState.kanji, gradeType = gradeType)
+        index = viewModel.getIndex(screenState = ScreenState.korean, gradeType = gradeType)
     }
 
     Box(
@@ -64,22 +74,35 @@ fun KanjiDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            KanjiBoardView(kanji = kanjis[index].kanji)
+            KanjiBigBoardView(kanji = kanjis[index].kanji)
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            KanjiInfoView(
+            KoreanQuizView(
                 modifier = Modifier.weight(1f),
-                character = kanjis[index],
+                count = 0,
+                index = index + 1,
                 total = kanjis.size,
-                count = index + 1
+                items = viewModel.getRandomKoreans(korean = kanjis[index].korean),
+                onSelect = {
+                    if (kanjis[index].korean == it) {
+                        index = if (index == kanjis.size - 1) 0 else index + 1
+                        viewModel.saveIndex(
+                            screenState = ScreenState.korean,
+                            gradeType = gradeType,
+                            index = index
+                        )
+                    } else {
+
+                    }
+                }
             )
 
             ArrowButtons(
                 beforeIndex = {
                     index = if (index == 0) kanjis.size - 1 else index - 1
                     viewModel.saveIndex(
-                        screenState = ScreenState.kanji,
+                        screenState = ScreenState.korean,
                         gradeType = gradeType,
                         index = index
                     )
@@ -87,7 +110,7 @@ fun KanjiDetailScreen(
                 nextIndex = {
                     index = if (index == kanjis.size - 1) 0 else index + 1
                     viewModel.saveIndex(
-                        screenState = ScreenState.kanji,
+                        screenState = ScreenState.korean,
                         gradeType = gradeType,
                         index = index
                     )
