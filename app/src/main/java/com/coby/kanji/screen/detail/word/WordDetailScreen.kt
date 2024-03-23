@@ -41,6 +41,7 @@ fun WordDetailScreen(
     val words: List<WordItem> = viewModel.getWordsByGrade(gradeType = gradeType)
     var index by remember { mutableStateOf(0) }
     var count by remember { mutableStateOf(0) }
+    var items by remember { mutableStateOf(listOf<String>("", "", "", "")) }
 
     LaunchedEffect(key1 = Unit) {
         index = viewModel.getIndex(screenState = ScreenState.word, gradeType = gradeType)
@@ -48,6 +49,7 @@ fun WordDetailScreen(
 
     LaunchedEffect(index) {
         count = viewModel.getCount(screenState = ScreenState.word, word = words[index].wordKanji)
+        items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound)
     }
 
     Box(
@@ -85,7 +87,7 @@ fun WordDetailScreen(
                 count = count,
                 index = index + 1,
                 total = words.size,
-                items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound),
+                items = items,
                 onSelect = {
                     if (words[index].word == it) {
                         index = if (index == words.size - 1) 0 else index + 1
@@ -100,6 +102,7 @@ fun WordDetailScreen(
                             word = words[index].wordKanji,
                             count = ++count
                         )
+                        items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound)
                     }
                 }
             )

@@ -44,6 +44,7 @@ fun KoreanDetailScreen(
     val kanjis: List<Character> = viewModel.getCharactersByGrade(gradeType = gradeType)
     var index by remember { mutableStateOf(0) }
     var count by remember { mutableStateOf(0) }
+    var items by remember { mutableStateOf(listOf<String>("", "", "", "")) }
 
     LaunchedEffect(key1 = Unit) {
         index = viewModel.getIndex(screenState = ScreenState.korean, gradeType = gradeType)
@@ -51,6 +52,7 @@ fun KoreanDetailScreen(
 
     LaunchedEffect(index) {
         count = viewModel.getCount(screenState = ScreenState.korean, word = kanjis[index].kanji)
+        items = viewModel.getRandomKoreans(korean = kanjis[index].korean)
     }
 
     Box(
@@ -88,7 +90,7 @@ fun KoreanDetailScreen(
                 count = count,
                 index = index + 1,
                 total = kanjis.size,
-                items = viewModel.getRandomKoreans(korean = kanjis[index].korean),
+                items = items,
                 onSelect = {
                     if (kanjis[index].korean == it) {
                         index = if (index == kanjis.size - 1) 0 else index + 1
@@ -103,6 +105,7 @@ fun KoreanDetailScreen(
                             word = kanjis[index].kanji,
                             count = ++count
                         )
+                        items = viewModel.getRandomKoreans(korean = kanjis[index].korean)
                     }
                 }
             )
