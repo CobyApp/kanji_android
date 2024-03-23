@@ -22,8 +22,10 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.kanji.KanjiDetailScreen
 import com.coby.kanji.screen.detail.korean.KoreanDetailScreen
+import com.coby.kanji.screen.detail.word.WordDetailScreen
 import com.coby.kanji.screen.gallery.kanji.KanjiGalleryScreen
 import com.coby.kanji.screen.gallery.korean.KoreanGalleryScreen
+import com.coby.kanji.screen.gallery.word.WordGalleryScreen
 import com.coby.kanji.screen.main.MainScreen
 import com.coby.kanji.screen.select.SelectScreen
 import com.coby.kanji.ui.theme.KanjiTheme
@@ -127,6 +129,24 @@ fun TopLevel(
         }
 
         composable(
+            "Detail/word",
+        ) {
+            WordDetailScreen(
+                gradeType = gradeType,
+                onDismiss = {
+                    navController.navigate("Select") {
+                        popUpTo("Select") {
+                            inclusive = true
+                        }
+                    }
+                },
+                onShowGallery = {
+                    navController.navigate( "Gallery/word")
+                }
+            )
+        }
+
+        composable(
             "Gallery/kanji",
         ) {
             KanjiGalleryScreen(
@@ -149,6 +169,21 @@ fun TopLevel(
                 onDismiss = {
                     navController.navigate("Detail/korean") {
                         popUpTo("Detail/korean") {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(
+            "Gallery/word",
+        ) {
+            WordGalleryScreen(
+                gradeType = gradeType,
+                onDismiss = {
+                    navController.navigate("Detail/word") {
+                        popUpTo("Detail/word") {
                             inclusive = true
                         }
                     }
