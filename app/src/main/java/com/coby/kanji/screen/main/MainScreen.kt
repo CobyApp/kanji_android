@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,12 +25,17 @@ import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.ui.components.button.BackButton
 import com.coby.kanji.ui.components.button.CommonButton
 import com.coby.kanji.ui.components.button.SoundButton
+import com.coby.kanji.util.TTSManager
 
 @Composable
 fun MainScreen(
     onStartButtonClick: (ScreenState) -> Unit,
 ) {
-    var isOn by remember { mutableStateOf(false) }
+    var isOn by remember { mutableStateOf(true) }
+
+    LaunchedEffect(key1 = Unit) {
+        isOn = TTSManager.isOn
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -49,6 +55,7 @@ fun MainScreen(
             isOn = isOn,
             onClick = {
                 isOn = !isOn
+                TTSManager.setOn(isOn = !TTSManager.isOn)
             }
         )
 
