@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -51,6 +52,7 @@ fun WordBoardView(
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 10.dp),
             text = word.wordKanji,
             color = Color.Black,
             fontSize = fontSize.nonScaledSp,
@@ -60,6 +62,7 @@ fun WordBoardView(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
+            modifier = Modifier.padding(horizontal = 10.dp),
             text = word.mean,
             color = Color.Black,
             fontSize = (fontSize * 0.5).toInt().nonScaledSp,
