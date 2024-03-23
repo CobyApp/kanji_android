@@ -6,14 +6,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,8 +31,7 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
-import com.coby.kanji.screen.detail.kanji.KanjiBoardView
-import com.coby.kanji.screen.detail.kanji.KanjiInfoView
+import com.coby.kanji.ui.components.BoardView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -81,9 +81,13 @@ fun KoreanDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            KanjiBigBoardView(kanji = kanjis[index].kanji)
-
-            Spacer(modifier = Modifier.height(16.dp))
+            BoardView(
+                modifier = Modifier
+                    .padding(horizontal = 40.dp)
+                    .fillMaxWidth()
+                    .aspectRatio(1.0f),
+                kanji = kanjis[index].kanji
+            )
 
             KoreanQuizView(
                 modifier = Modifier.weight(1f),

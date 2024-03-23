@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -45,6 +46,13 @@ fun SelectScreen(
                 .background(Color.Black.copy(alpha = 0.5f))
         )
 
+        SelectView(
+            screenState = screenState,
+            onSelectButtonClick = {
+                onShowDetail(it)
+            }
+        )
+
         BackButton(
             modifier = Modifier
                 .systemBarsPadding()
@@ -54,30 +62,23 @@ fun SelectScreen(
                 onDismiss()
             }
         )
-
-        SelectView(
-            modifier = Modifier
-                .systemBarsPadding()
-                .padding(horizontal = 16.dp)
-                .padding(top = 82.dp)
-                .align(Alignment.TopCenter),
-            screenState = screenState,
-            onSelectButtonClick = {
-                onShowDetail(it)
-            }
-        )
     }
 }
 
 @Composable
 fun SelectView(
-    modifier: Modifier = Modifier,
     screenState: ScreenState,
     onSelectButtonClick: (GradeType) -> Unit,
     viewModel: CharacterViewModel = hiltViewModel()
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = Modifier.systemBarsPadding(),
+        contentPadding = PaddingValues(
+            top = 82.dp,
+            bottom = 16.dp,
+            start = 16.dp,
+            end = 16.dp
+        ),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items(GradeType.values().size) { index ->

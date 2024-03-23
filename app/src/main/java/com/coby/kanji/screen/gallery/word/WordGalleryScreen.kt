@@ -28,11 +28,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.coby.kanji.R
-import com.coby.kanji.entity.Character
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.entity.WordItem
-import com.coby.kanji.screen.gallery.common.GalleryKanjiView
+import com.coby.kanji.ui.components.GalleryKanjiView
 import com.coby.kanji.screen.gallery.common.GalleryTopAppBarView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
@@ -81,7 +80,7 @@ fun WordGalleryScreen(
             state = gridState
         ) {
             itemsIndexed(words) { index, word ->
-                GalleryKanjiView(
+                GalleryWordView(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1f)

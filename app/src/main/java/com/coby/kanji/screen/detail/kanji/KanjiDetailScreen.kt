@@ -22,6 +22,7 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
+import com.coby.kanji.ui.components.BoardView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -64,9 +65,13 @@ fun KanjiDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            KanjiBoardView(kanji = kanjis[index].kanji)
-
-            Spacer(modifier = Modifier.height(16.dp))
+            BoardView(
+                modifier = Modifier
+                    .padding(horizontal = 80.dp)
+                    .fillMaxWidth()
+                    .aspectRatio(1.0f),
+                kanji = kanjis[index].kanji
+            )
 
             KanjiInfoView(
                 modifier = Modifier.weight(1f),

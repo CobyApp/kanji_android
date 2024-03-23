@@ -31,7 +31,7 @@ import com.coby.kanji.R
 import com.coby.kanji.entity.Character
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
-import com.coby.kanji.screen.gallery.common.GalleryKanjiView
+import com.coby.kanji.ui.components.GalleryKanjiView
 import com.coby.kanji.screen.gallery.common.GalleryTopAppBarView
 import com.coby.kanji.viewmodel.CharacterViewModel
 

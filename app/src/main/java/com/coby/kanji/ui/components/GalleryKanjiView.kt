@@ -1,12 +1,9 @@
-package com.coby.kanji.screen.detail.word
+package com.coby.kanji.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,45 +19,47 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
-import com.coby.kanji.entity.WordItem
 
 @Composable
-fun WordBoardView(
+fun GalleryKanjiView(
     modifier: Modifier = Modifier,
-    word: WordItem
+    kanji: String,
+    isChecked: Boolean
 ) {
-    var fontSize by remember { mutableStateOf(50.sp) }
+    var fontSize by remember { mutableStateOf(100.sp) }
 
-    Column(
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
-            .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
-            .background(color = Color.White, shape = RoundedCornerShape(20.dp))
-            .fillMaxWidth()
-            .height(250.dp)
+            .background(color = Color.White.copy(alpha = 0.8f), shape = RoundedCornerShape(20.dp))
             .onGloballyPositioned { layoutCoordinates ->
                 val width = layoutCoordinates.size.width
-                fontSize = (width / 15).sp
-            },
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+                fontSize = (width / 4).sp
+            }
     ) {
         Text(
-            text = word.wordKanji,
+            text = kanji,
             color = Color.Black,
             fontSize = fontSize,
             fontFamily = FontFamily(Font(R.font.jkmaru))
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = word.mean,
-            color = Color.Black,
-            fontSize = fontSize * 0.5,
-            fontFamily = FontFamily(Font(R.font.ownglyph))
-        )
+        if (isChecked) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f))
+            )
+        }
     }
+}
+
+@Preview
+@Composable
+fun PreviewGalleryKanjiView() {
+    GalleryKanjiView(modifier = Modifier.width(100.dp).height(100.dp), kanji = "家", isChecked = true)
 }

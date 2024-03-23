@@ -80,8 +80,6 @@ fun WordDetailScreen(
 
             WordBoardView(word = words[index])
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             WordQuizView(
                 modifier = Modifier.weight(1f),
                 count = count,
