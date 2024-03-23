@@ -31,8 +31,8 @@ import com.coby.kanji.R
 import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.entity.WordItem
-import com.coby.kanji.ui.components.GalleryKanjiView
 import com.coby.kanji.screen.gallery.common.GalleryTopAppBarView
+import com.coby.kanji.screen.gallery.common.GalleryWordView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -102,7 +102,7 @@ fun WordGalleryScreen(
             modifier = Modifier
                 .systemBarsPadding()
                 .padding(16.dp),
-            text = "${gradeType.title} - 총 ${words.size}단어"
+            text = "총 ${words.size}단어"
         ) {
             onDismiss()
         }

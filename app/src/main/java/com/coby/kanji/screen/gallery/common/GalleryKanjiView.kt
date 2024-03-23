@@ -1,8 +1,8 @@
-package com.coby.kanji.ui.components
+package com.coby.kanji.screen.gallery.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,35 +22,44 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
+import com.coby.kanji.ui.theme.nonScaledSp
 
 @Composable
-fun BoardView(
+fun GalleryKanjiView(
     modifier: Modifier = Modifier,
-    kanji: String
+    kanji: String,
+    isChecked: Boolean
 ) {
-    var fontSize by remember { mutableStateOf(100.sp) }
+    var fontSize by remember { mutableStateOf(100) }
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
-            .background(color = Color.White, shape = RoundedCornerShape(20.dp))
+            .background(color = Color.White.copy(alpha = 0.8f), shape = RoundedCornerShape(20.dp))
             .onGloballyPositioned { layoutCoordinates ->
                 val width = layoutCoordinates.size.width
-                fontSize = (width / 4).sp
+                fontSize = (width / 4)
             }
     ) {
         Text(
             text = kanji,
             color = Color.Black,
-            fontSize = fontSize,
+            fontSize = fontSize.nonScaledSp,
             fontFamily = FontFamily(Font(R.font.jkmaru))
         )
+
+        if (isChecked) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f))
+            )
+        }
     }
 }
 
 @Preview
 @Composable
-fun PreviewKanjiBoardView() {
-    BoardView(modifier = Modifier.height(300.dp).width(300.dp), kanji = "家")
+fun PreviewGalleryKanjiView() {
+    GalleryKanjiView(modifier = Modifier.width(100.dp).height(100.dp), kanji = "家", isChecked = true)
 }

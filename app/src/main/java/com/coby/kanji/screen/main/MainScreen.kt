@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +39,9 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             CommonButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 text = "한자 공부하기",
                 onClick = {
                     onStartButtonClick(ScreenState.kanji)
@@ -44,6 +49,9 @@ fun MainScreen(
             )
 
             CommonButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 text = "뜻음 퀴즈",
                 onClick = {
                     onStartButtonClick(ScreenState.korean)
@@ -51,6 +59,9 @@ fun MainScreen(
             )
 
             CommonButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 text = "단어 퀴즈",
                 onClick = {
                     onStartButtonClick(ScreenState.word)

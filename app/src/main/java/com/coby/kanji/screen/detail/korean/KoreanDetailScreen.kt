@@ -5,11 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
@@ -31,7 +29,7 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
-import com.coby.kanji.ui.components.BoardView
+import com.coby.kanji.screen.detail.common.BoardView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable

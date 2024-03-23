@@ -22,7 +22,7 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
-import com.coby.kanji.ui.components.BoardView
+import com.coby.kanji.screen.detail.common.BoardView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable

@@ -2,6 +2,7 @@ package com.coby.kanji.ui.components.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,9 +22,7 @@ fun CommonButton(
     onClick: () -> Unit
 ) {
     Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(60.dp),
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Black.copy(alpha = 0.8F),
             contentColor = Color.White
@@ -32,6 +31,7 @@ fun CommonButton(
         onClick = onClick
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 10.dp),
             text = text,
             style = TextStyle(
                 fontFamily = Ownglyph,

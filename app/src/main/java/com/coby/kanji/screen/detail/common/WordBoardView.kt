@@ -1,4 +1,4 @@
-package com.coby.kanji.screen.detail.word
+package com.coby.kanji.screen.detail.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,19 +20,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
 import com.coby.kanji.entity.WordItem
+import com.coby.kanji.ui.theme.nonScaledSp
 
 @Composable
 fun WordBoardView(
     modifier: Modifier = Modifier,
     word: WordItem
 ) {
-    var fontSize by remember { mutableStateOf(50.sp) }
+    var fontSize by remember { mutableStateOf(50) }
 
     Column(
         modifier = modifier
@@ -42,7 +45,7 @@ fun WordBoardView(
             .height(250.dp)
             .onGloballyPositioned { layoutCoordinates ->
                 val width = layoutCoordinates.size.width
-                fontSize = (width / 15).sp
+                fontSize = (width / 15)
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -50,7 +53,7 @@ fun WordBoardView(
         Text(
             text = word.wordKanji,
             color = Color.Black,
-            fontSize = fontSize,
+            fontSize = fontSize.nonScaledSp,
             fontFamily = FontFamily(Font(R.font.jkmaru))
         )
 
@@ -59,7 +62,7 @@ fun WordBoardView(
         Text(
             text = word.mean,
             color = Color.Black,
-            fontSize = fontSize * 0.5,
+            fontSize = (fontSize * 0.5).toInt().nonScaledSp,
             fontFamily = FontFamily(Font(R.font.ownglyph))
         )
     }

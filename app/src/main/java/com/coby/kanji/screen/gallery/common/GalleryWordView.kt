@@ -1,4 +1,4 @@
-package com.coby.kanji.screen.gallery.word
+package com.coby.kanji.screen.gallery.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coby.kanji.R
+import com.coby.kanji.ui.theme.nonScaledSp
 
 @Composable
 fun GalleryWordView(
@@ -28,8 +29,8 @@ fun GalleryWordView(
     kanji: String,
     isChecked: Boolean
 ) {
-    var fontSize by remember { mutableStateOf(100.sp) }
-    var lineHeight by remember { mutableStateOf(100.sp) }
+    var fontSize by remember { mutableStateOf(100) }
+    var lineHeight by remember { mutableStateOf(100) }
 
     Box(
         contentAlignment = Alignment.Center,
@@ -37,17 +38,17 @@ fun GalleryWordView(
             .background(color = Color.White.copy(alpha = 0.8f), shape = RoundedCornerShape(20.dp))
             .onGloballyPositioned { layoutCoordinates ->
                 val width = layoutCoordinates.size.width
-                fontSize = (width / 10).sp
-                lineHeight = (width / 9).sp
+                fontSize = (width / 10)
+                lineHeight = (width / 9)
             }
     ) {
         Text(
             modifier = Modifier.padding(16.dp),
             text = kanji,
             color = Color.Black,
-            fontSize = fontSize,
+            fontSize = fontSize.nonScaledSp,
             fontFamily = FontFamily(Font(R.font.jkmaru)),
-            lineHeight = lineHeight,
+            lineHeight = lineHeight.nonScaledSp,
             textAlign = TextAlign.Center
         )
 

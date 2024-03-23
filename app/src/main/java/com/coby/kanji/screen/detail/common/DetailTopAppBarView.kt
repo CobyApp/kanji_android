@@ -26,7 +26,6 @@ fun DetailTopAppBarView(onDismiss: () -> Unit, onShowGallery: () -> Unit) {
 
         CommonButton(
             modifier = Modifier
-                .width(80.dp)
                 .height(50.dp),
             text = "목록",
             onClick = onShowGallery
