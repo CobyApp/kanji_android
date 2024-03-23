@@ -9,8 +9,8 @@ fun CharacterDTO.toCharacter(): Character = Character(
     grade = this.getGradeType(),
     kanji = this.kanji,
     korean = this.korean,
-    sounds = this.sound?.split(",") ?: emptyList<String>(),
-    meanings = this.meaning?.split(",") ?: emptyList<String>(),
+    sounds = this.sound?.split(",") ?: emptyList(),
+    meanings = this.meaning?.split(",") ?: emptyList(),
     words1 = this.getWords1(),
     words2 = this.getWords2()
 )
@@ -28,23 +28,23 @@ fun CharacterDTO.getGradeType(): GradeType {
 }
 
 fun CharacterDTO.getWords1(): List<WordItem> {
-    val words = this.word1?.split("&") ?: emptyList<String>()
+    val words = this.word1?.split("&") ?: emptyList()
     return words.map {
-        val words = it.split("] ")
+        val allWords = it.split("] ")
         WordItem(
-            word = "${words.firstOrNull() ?: ""}]",
-            mean = words.getOrNull(1) ?: ""
+            word = "${allWords.firstOrNull() ?: ""}]",
+            mean = allWords.getOrNull(1) ?: ""
         )
     }
 }
 
 fun CharacterDTO.getWords2(): List<WordItem> {
-    val words = this.word2?.split("&") ?: emptyList<String>()
+    val words = this.word2?.split("&") ?: emptyList()
     return words.map {
-        val words = it.split("] ")
+        val allWords = it.split("] ")
         WordItem(
-            word = "${words.firstOrNull() ?: ""}]",
-            mean = words.getOrNull(1) ?: ""
+            word = "${allWords.firstOrNull() ?: ""}]",
+            mean = allWords.getOrNull(1) ?: ""
         )
     }
 }
