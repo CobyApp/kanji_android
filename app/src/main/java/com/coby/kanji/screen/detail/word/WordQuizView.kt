@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -40,33 +42,52 @@ fun WordQuizView(
     ) {
         QuizTitleView(count = count, index = index, total = total)
 
-        LazyVerticalGrid(
+        Row(
             modifier = Modifier.weight(1f),
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(0.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            this.items(items) { item ->
-                WordQuizItemView(
-                    item = item,
-                    onSelect = onSelect
-                )
-            }
+            WordQuizItemView(
+                modifier = Modifier.weight(1f),
+                item = items[0],
+                onSelect = onSelect
+            )
+
+            WordQuizItemView(
+                modifier = Modifier.weight(1f),
+                item = items[1],
+                onSelect = onSelect
+            )
+        }
+
+        Row(
+            modifier = Modifier.weight(1f),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            WordQuizItemView(
+                modifier = Modifier.weight(1f),
+                item = items[2],
+                onSelect = onSelect
+            )
+
+            WordQuizItemView(
+                modifier = Modifier.weight(1f),
+                item = items[3],
+                onSelect = onSelect
+            )
         }
     }
 }
 
 @Composable
 fun WordQuizItemView(
+    modifier: Modifier = Modifier,
     item: String,
     onSelect: (String) -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Max)
+        modifier = modifier
+            .fillMaxSize()
             .clickable { onSelect(item) }
             .background(
                 color = Color.Black.copy(alpha = 0.8F),
