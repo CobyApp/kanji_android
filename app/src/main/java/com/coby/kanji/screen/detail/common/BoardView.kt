@@ -37,8 +37,8 @@ fun BoardView(
             .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
             .onGloballyPositioned { layoutCoordinates ->
-                val width = layoutCoordinates.size.width
-                fontSize = (width / 4)
+                val height = layoutCoordinates.size.height
+                fontSize = (height / 4)
             }
     ) {
         Text(

@@ -43,8 +43,8 @@ fun WordBoardView(
             .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
             .onGloballyPositioned { layoutCoordinates ->
-                val width = layoutCoordinates.size.width
-                fontSize = (width / 15)
+                val height = layoutCoordinates.size.height
+                fontSize = (height / 15)
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
