@@ -13,7 +13,7 @@ android {
         applicationId = "com.coby.kanji"
         minSdk = 30
         targetSdk = 34
-        versionCode = 2
+        versionCode = 3
         versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
