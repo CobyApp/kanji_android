@@ -72,39 +72,98 @@ fun KanjiDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            BoardView(
-                modifier = Modifier
-                    .padding(horizontal = 80.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1.0f),
-                kanji = kanjis[index].kanji
-            )
+            BoxWithConstraints {
+                if (maxWidth > maxHeight) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            BoardView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                kanji = kanjis[index].kanji
+                            )
 
-            KanjiInfoView(
-                modifier = Modifier.weight(1f),
-                character = kanjis[index],
-                total = kanjis.size,
-                count = index + 1
-            )
+                            KanjiInfoView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                character = kanjis[index],
+                                total = kanjis.size,
+                                count = index + 1
+                            )
+                        }
 
-            ArrowButtons(
-                beforeIndex = {
-                    index = if (index == 0) kanjis.size - 1 else index - 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.kanji,
-                        gradeType = gradeType,
-                        index = index
-                    )
-                },
-                nextIndex = {
-                    index = if (index == kanjis.size - 1) 0 else index + 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.kanji,
-                        gradeType = gradeType,
-                        index = index
-                    )
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) kanjis.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.kanji,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == kanjis.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.kanji,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        BoardView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            kanji = kanjis[index].kanji
+                        )
+
+                        KanjiInfoView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            character = kanjis[index],
+                            total = kanjis.size,
+                            count = index + 1
+                        )
+
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) kanjis.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.kanji,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == kanjis.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.kanji,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
+                        )
+                    }
                 }
-            )
+            }
         }
     }
 }
