@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -26,8 +28,10 @@ import com.coby.kanji.entity.GradeType
 import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.entity.WordItem
 import com.coby.kanji.screen.detail.common.ArrowButtons
+import com.coby.kanji.screen.detail.common.BoardView
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
 import com.coby.kanji.screen.detail.common.WordBoardView
+import com.coby.kanji.screen.detail.korean.KoreanQuizView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -77,51 +81,134 @@ fun WordDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            WordBoardView(word = words[index])
+            BoxWithConstraints {
+                if (maxWidth > maxHeight) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            WordBoardView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                word = words[index]
+                            )
 
-            WordQuizView(
-                modifier = Modifier.weight(1f),
-                count = count,
-                index = index + 1,
-                total = words.size,
-                items = items,
-                onSelect = {
-                    if (words[index].wordSound == it) {
-                        index = if (index == words.size - 1) 0 else index + 1
-                        viewModel.saveIndex(
-                            screenState = ScreenState.word,
-                            gradeType = gradeType,
-                            index = index
+                            WordQuizView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                count = count,
+                                index = index + 1,
+                                total = words.size,
+                                items = items,
+                                onSelect = {
+                                    if (words[index].wordSound == it) {
+                                        index = if (index == words.size - 1) 0 else index + 1
+                                        viewModel.saveIndex(
+                                            screenState = ScreenState.word,
+                                            gradeType = gradeType,
+                                            index = index
+                                        )
+                                    } else {
+                                        viewModel.saveCount(
+                                            screenState = ScreenState.word,
+                                            word = words[index].wordKanji,
+                                            count = ++count
+                                        )
+                                        items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound)
+                                    }
+                                }
+                            )
+                        }
+
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) words.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.word,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == words.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.word,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
                         )
-                    } else {
-                        viewModel.saveCount(
-                            screenState = ScreenState.word,
-                            word = words[index].wordKanji,
-                            count = ++count
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        WordBoardView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            word = words[index]
                         )
-                        items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound)
+
+                        WordQuizView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            count = count,
+                            index = index + 1,
+                            total = words.size,
+                            items = items,
+                            onSelect = {
+                                if (words[index].wordSound == it) {
+                                    index = if (index == words.size - 1) 0 else index + 1
+                                    viewModel.saveIndex(
+                                        screenState = ScreenState.word,
+                                        gradeType = gradeType,
+                                        index = index
+                                    )
+                                } else {
+                                    viewModel.saveCount(
+                                        screenState = ScreenState.word,
+                                        word = words[index].wordKanji,
+                                        count = ++count
+                                    )
+                                    items = viewModel.getRandomWordSounds(wordSound = words[index].wordSound)
+                                }
+                            }
+                        )
+
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) words.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.word,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == words.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.word,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
+                        )
                     }
                 }
-            )
-
-            ArrowButtons(
-                beforeIndex = {
-                    index = if (index == 0) words.size - 1 else index - 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.word,
-                        gradeType = gradeType,
-                        index = index
-                    )
-                },
-                nextIndex = {
-                    index = if (index == words.size - 1) 0 else index + 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.word,
-                        gradeType = gradeType,
-                        index = index
-                    )
-                }
-            )
+            }
         }
     }
 }

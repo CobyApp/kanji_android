@@ -42,8 +42,6 @@ fun WordBoardView(
         modifier = modifier
             .border(width = 10.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
-            .fillMaxWidth()
-            .height(250.dp)
             .onGloballyPositioned { layoutCoordinates ->
                 val width = layoutCoordinates.size.width
                 fontSize = (width / 15)

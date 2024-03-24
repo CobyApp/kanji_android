@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +32,7 @@ import com.coby.kanji.entity.ScreenState
 import com.coby.kanji.screen.detail.common.ArrowButtons
 import com.coby.kanji.screen.detail.common.DetailTopAppBarView
 import com.coby.kanji.screen.detail.common.BoardView
+import com.coby.kanji.screen.detail.kanji.KanjiInfoView
 import com.coby.kanji.viewmodel.CharacterViewModel
 
 @Composable
@@ -79,57 +82,134 @@ fun KoreanDetailScreen(
         ) {
             DetailTopAppBarView(onDismiss = onDismiss, onShowGallery = onShowGallery)
 
-            BoardView(
-                modifier = Modifier
-                    .padding(horizontal = 40.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1.0f),
-                kanji = kanjis[index].kanji
-            )
+            BoxWithConstraints {
+                if (maxWidth > maxHeight) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            BoardView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                kanji = kanjis[index].kanji
+                            )
 
-            KoreanQuizView(
-                modifier = Modifier.weight(1f),
-                count = count,
-                index = index + 1,
-                total = kanjis.size,
-                items = items,
-                onSelect = {
-                    if (kanjis[index].korean == it) {
-                        index = if (index == kanjis.size - 1) 0 else index + 1
-                        viewModel.saveIndex(
-                            screenState = ScreenState.korean,
-                            gradeType = gradeType,
-                            index = index
+                            KoreanQuizView(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxSize(),
+                                count = count,
+                                index = index + 1,
+                                total = kanjis.size,
+                                items = items,
+                                onSelect = {
+                                    if (kanjis[index].korean == it) {
+                                        index = if (index == kanjis.size - 1) 0 else index + 1
+                                        viewModel.saveIndex(
+                                            screenState = ScreenState.korean,
+                                            gradeType = gradeType,
+                                            index = index
+                                        )
+                                    } else {
+                                        viewModel.saveCount(
+                                            screenState = ScreenState.korean,
+                                            word = kanjis[index].kanji,
+                                            count = ++count
+                                        )
+                                        items = viewModel.getRandomKoreans(korean = kanjis[index].korean)
+                                    }
+                                }
+                            )
+                        }
+
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) kanjis.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.korean,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == kanjis.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.korean,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
                         )
-                    } else {
-                        viewModel.saveCount(
-                            screenState = ScreenState.korean,
-                            word = kanjis[index].kanji,
-                            count = ++count
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        BoardView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            kanji = kanjis[index].kanji
                         )
-                        items = viewModel.getRandomKoreans(korean = kanjis[index].korean)
+
+                        KoreanQuizView(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            count = count,
+                            index = index + 1,
+                            total = kanjis.size,
+                            items = items,
+                            onSelect = {
+                                if (kanjis[index].korean == it) {
+                                    index = if (index == kanjis.size - 1) 0 else index + 1
+                                    viewModel.saveIndex(
+                                        screenState = ScreenState.korean,
+                                        gradeType = gradeType,
+                                        index = index
+                                    )
+                                } else {
+                                    viewModel.saveCount(
+                                        screenState = ScreenState.korean,
+                                        word = kanjis[index].kanji,
+                                        count = ++count
+                                    )
+                                    items = viewModel.getRandomKoreans(korean = kanjis[index].korean)
+                                }
+                            }
+                        )
+
+                        ArrowButtons(
+                            beforeIndex = {
+                                index = if (index == 0) kanjis.size - 1 else index - 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.korean,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            },
+                            nextIndex = {
+                                index = if (index == kanjis.size - 1) 0 else index + 1
+                                viewModel.saveIndex(
+                                    screenState = ScreenState.korean,
+                                    gradeType = gradeType,
+                                    index = index
+                                )
+                            }
+                        )
                     }
                 }
-            )
-
-            ArrowButtons(
-                beforeIndex = {
-                    index = if (index == 0) kanjis.size - 1 else index - 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.korean,
-                        gradeType = gradeType,
-                        index = index
-                    )
-                },
-                nextIndex = {
-                    index = if (index == kanjis.size - 1) 0 else index + 1
-                    viewModel.saveIndex(
-                        screenState = ScreenState.korean,
-                        gradeType = gradeType,
-                        index = index
-                    )
-                }
-            )
+            }
         }
     }
 }
