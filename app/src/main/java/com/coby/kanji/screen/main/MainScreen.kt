@@ -61,6 +61,7 @@ fun MainScreen(
 
         Column(
             modifier = Modifier
+                .systemBarsPadding()
                 .padding(16.dp)
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(10.dp)
